@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
 :root{
-  --paper:#faf8f4; --paper-2:#f2efe8; --ink:#1c1a17; --ink-soft:#4a463f;
-  --muted:#8a847a; --line:#e0dbd1; --accent:#8a5a3c; --accent-soft:#b98a5e;
+  --paper:#ffffff; --paper-2:#f7f8fa; --ink:#1a1a1a; --ink-soft:#404349;
+  --muted:#8a8f98; --line:#e7e9ee; --accent:#2e6de6; --accent-soft:#7aa5f0;
   --serif:"Newsreader",Georgia,"Songti SC","STSong",serif;
   --sans:"Inter",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
@@ -34,8 +34,8 @@ aside{
 main{margin-left:var(--side);flex:1;max-width:760px;padding:72px 64px 80px}
 
 /* ===== sidebar ===== */
-.portrait{width:150px;height:150px;border-radius:4px;object-fit:cover;object-position:center top;
-  filter:grayscale(18%);border:1px solid var(--line);box-shadow:0 8px 28px rgba(40,30,20,.12)}
+.portrait{width:180px;height:240px;border-radius:8px;object-fit:cover;object-position:center;
+  filter:grayscale(6%);border:1px solid var(--line);box-shadow:0 10px 30px rgba(20,30,60,.10)}
 aside .name{font-family:var(--serif);font-size:2.1rem;font-weight:600;letter-spacing:.5px;margin-top:24px;line-height:1.1}
 aside .name .en{display:block;font-family:var(--mono);font-size:.82rem;color:var(--muted);letter-spacing:.5px;margin-top:8px;font-weight:400}
 aside .title{font-size:1rem;color:var(--accent);margin-top:14px;font-weight:600;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0}
@@ -97,9 +97,11 @@ section:first-of-type{border-top:none;padding-top:8px}
 .honors li{color:var(--ink-soft);font-size:.94rem;margin-bottom:9px;padding-left:20px;position:relative}
 .honors li::before{content:"✦";position:absolute;left:0;color:var(--accent-soft);font-size:.8rem}
 
-/* reveal */
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
+/* reveal — CSS-only, always ends visible even if JS is disabled */
+.reveal{animation:fadeUp .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+section:nth-of-type(2) .reveal{animation-delay:.05s}
+section:nth-of-type(3) .reveal{animation-delay:.1s}
 
 /* mobile */
 @media(max-width:900px){
@@ -107,7 +109,7 @@ section:first-of-type{border-top:none;padding-top:8px}
   .layout{flex-direction:column}
   aside{position:relative;width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;gap:20px;padding:32px 28px;border-right:none;border-bottom:1px solid var(--line)}
   aside .name{margin-top:0}
-  .portrait{width:96px;height:96px}
+  .portrait{width:90px;height:120px}
   .side-nav{display:none}
   .side-foot{margin:0;padding:0;width:100%}
   main{margin-left:0;padding:40px 28px 60px;max-width:100%}
@@ -254,13 +256,6 @@ section:first-of-type{border-top:none;padding-top:8px}
 
 <script>
 document.getElementById("yr").textContent = new Date().getFullYear();
-// scroll reveal
-(function(){
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll(".reveal").forEach(function(n){ io.observe(n); });
-})();
 // active nav highlight
 (function(){
   var links = Array.prototype.slice.call(document.querySelectorAll(".side-nav a"));
@@ -275,6 +270,13 @@ document.getElementById("yr").textContent = new Date().getFullYear();
     });
   }, { rootMargin:"-40% 0px -55% 0px" });
   secs.forEach(function(s){ if(s) io.observe(s); });
+  // smooth scroll
+  links.forEach(function(a){
+    a.addEventListener("click", function(ev){
+      var t = document.querySelector(a.getAttribute("href"));
+      if(t){ ev.preventDefault(); t.scrollIntoView({behavior:"smooth"}); }
+    });
+  });
 })();
 </script>
 </body>
