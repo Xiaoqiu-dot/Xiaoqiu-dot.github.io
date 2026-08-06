@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Xiaoqiu · LLM Inference</title>
+<meta name="description" content="Xiaoqiu — 学习 LLM 与大模型推理，专注 vLLM、Attention 与 CUDA Kernel。" />
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-2: #3fb950;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #ffffff;
+      --surface: #f6f8fa;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --muted: #656d76;
+      --accent: #0969da;
+      --accent-2: #1a7f37;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header {
+    padding: 80px 0 48px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .avatar {
+    width: 108px; height: 108px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 44px; font-weight: 700; color: #fff;
+    margin: 0 auto 20px;
+  }
+  header h1 { font-size: 2.1rem; letter-spacing: -0.5px; }
+  header .tagline { color: var(--muted); font-size: 1.1rem; margin-top: 8px; }
+  .links { margin-top: 22px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-size: 0.92rem;
+    background: var(--surface); transition: border-color .2s, transform .1s;
+  }
+  .btn:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+
+  section { padding: 44px 0; border-bottom: 1px solid var(--border); }
+  section h2 { font-size: 1.4rem; margin-bottom: 18px; }
+  section p { color: var(--text); margin-bottom: 14px; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    padding: 4px 12px; border-radius: 999px; font-size: 0.85rem;
+    background: var(--surface); border: 1px solid var(--border); color: var(--muted);
+  }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px; margin-bottom: 16px;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card h3 { font-size: 1.15rem; margin-bottom: 6px; }
+  .card h3 a { color: var(--text); }
+  .card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 12px; }
+  .card .meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .card .meta .tag { font-size: 0.78rem; }
+
+  footer { padding: 40px 0 60px; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+  @media (max-width: 600px) {
+    header { padding: 56px 0 36px; }
+    header h1 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="avatar">X</div>
+    <h1>Xiaoqiu</h1>
+    <p class="tagline">学习 LLM 与大模型推理 · vLLM / Attention / CUDA Kernel</p>
+    <div class="links">
+      <a class="btn" href="https://github.com/Xiaoqiu-dot" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="mailto:15093634574@163.com">Email</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="about">
+    <h2>关于我</h2>
+    <p>
+      我在系统学习大语言模型（LLM）与推理引擎的底层原理，动手复现关键组件，
+      从注意力机制、KV Cache、张量并行到自定义 CUDA Kernel，力求把"能跑通"和"讲清楚"结合起来。
+    </p>
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">PyTorch</span>
+      <span class="tag">CUDA / Triton</span>
+      <span class="tag">vLLM</span>
+      <span class="tag">PagedAttention</span>
+      <span class="tag">FlashAttention</span>
+      <span class="tag">Tensor Parallelism</span>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>项目</h2>
+
+    <div class="card">
+      <h3><a href="https://github.com/Xiaoqiu-dot/MinivLLM-Fixed" target="_blank" rel="noopener">MinivLLM-Fixed</a></h3>
+      <p>
+        一个可完整运行的最小化 vLLM 推理引擎，用于深入学习 LLM 推理原理：
+        自实现 PagedAttention / FlashAttention、张量并行 Qwen3/Llama 支持、
+        KV Cache 管理与自定义 CUDA Decode Kernel。以 Release 逐步演进，便于跟随学习。
+      </p>
+      <div class="meta">
+        <span class="tag">Python</span>
+        <span class="tag">CUDA</span>
+        <span class="tag">Inference</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="learning">
+    <h2>正在学</h2>
+    <p>
+      PagedAttention 的块级 KV 管理、FlashAttention 的 online softmax、
+      GQA Decode Kernel 优化，以及多 GPU 张量并行下的调度与数值稳定性。
+    </p>
+  </section>
+
+  <section id="contact">
+    <h2>联系</h2>
+    <p>
+      邮箱：<a href="mailto:15093634574@163.com">15093634574@163.com</a><br />
+      GitHub：<a href="https://github.com/Xiaoqiu-dot" target="_blank" rel="noopener">github.com/Xiaoqiu-dot</a>
+    </p>
+  </section>
+</main>
+
+<footer class="wrap">
+  © <span id="year"></span> Xiaoqiu · Built with GitHub Pages
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
