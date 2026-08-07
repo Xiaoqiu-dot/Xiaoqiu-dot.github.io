@@ -157,10 +157,13 @@ a:hover{color:var(--ink)}
 .skills-row .cat{font-family:var(--mono);font-size:.82rem;color:var(--accent);min-width:130px;flex-shrink:0}
 .skills-row .items{color:var(--ink-soft);font-size:.93rem}
 
-/* awards list */
+/* awards list — bullet left, italic year right-aligned */
 .awards{list-style:none}
-.awards li{color:var(--ink-soft);font-size:.92rem;margin-bottom:11px;padding-left:20px;position:relative}
-.awards li::before{content:"✦";position:absolute;left:0;color:var(--accent-soft);font-size:.8rem}
+.awards li{color:var(--ink-soft);font-size:.92rem;margin-bottom:11px;padding-left:20px;position:relative;
+  display:flex;gap:14px;align-items:flex-end;line-height:1.5}
+.awards li::before{content:"•";position:absolute;left:2px;top:0;color:var(--accent-soft);font-size:1.05rem;line-height:1.45}
+.awards li .txt{flex:1;min-width:0}
+.awards li .ad{flex-shrink:0;font-style:italic;color:var(--ink-soft);white-space:nowrap;font-size:.9rem}
 .awards li b{color:var(--ink);font-weight:700}
 
 /* reveal */
@@ -271,12 +274,12 @@ a:hover{color:var(--ink)}
         <div class="col" id="awards">
           <h2 class="tight"><span class="en">Honors &amp; Awards</span><span class="zh">荣誉获奖</span></h2>
           <ul class="awards">
-            <li><span class="en"><b>22nd China Postgraduate Math Contest in Modeling</b> · National Third Prize (Lead) — rock-fracture recognition &amp; 3D reconstruction (RF AUC 0.866 + nnU-Net), robustness +23%.</span><span class="zh"><b>“华为杯”第二十二届中国研究生数学建模竞赛</b> · 国家级三等奖（负责人）——围岩裂隙识别与三维重构（随机森林 AUC 0.866 + nnU-Net），鲁棒性 +23%。</span></li>
-            <li><span class="en"><b>14th National Market Survey &amp; Analysis Competition</b> · National Third Prize (Lead) — 12K JDs + 2,876 surveys, LDA topic mining + K-means + Logistic regression.</span><span class="zh"><b>第十四届全国大学生市场调查与分析大赛</b> · 国家级三等奖（负责人）——1.2 万条 JD + 2876 份问卷，LDA 主题挖掘 + K-means + Logistic 回归。</span></li>
-            <li><span class="en"><b>2024 "Challenge Cup" Henan Business Plan Competition</b> · Provincial Silver — 200K+ pressure time-series, RL dynamic control, posture match 78%→92%.</span><span class="zh"><b>2024 “挑战杯”河南省创业计划竞赛</b> · 省级银奖——20 万+ 压力时序，强化学习动态控制，体位匹配度 78%→92%。</span></li>
-            <li><span class="en">National College Student Math Competition (Non-Math B) · First Prize</span><span class="zh">全国大学生数学竞赛（非数 B）· 一等奖</span></li>
-            <li><span class="en">"Eastmoney Cup" National Finance Challenge · Provincial Second Prize</span><span class="zh">“东方财富杯”全国大学金融挑战赛省赛 · 二等奖</span></li>
-            <li><span class="en">SCU Outstanding Class Officer · Merit Scholarship · CPC Member</span><span class="zh">四川大学优秀班干部 · 单项奖学金 · 中共党员</span></li>
+            <li><span class="txt"><span class="en"><b>22nd China Postgraduate Math Contest in Modeling ("Huawei Cup")</b> · National Third Prize (Lead) — rock-fracture recognition &amp; 3D reconstruction (RF AUC 0.866 + nnU-Net), robustness +23%.</span><span class="zh"><b>“华为杯”第二十二届中国研究生数学建模竞赛</b> · 国家级三等奖（负责人）——围岩裂隙识别与三维重构（随机森林 AUC 0.866 + nnU-Net），鲁棒性 +23%。</span></span><span class="ad">2025.9</span></li>
+            <li><span class="txt"><span class="en"><b>14th National Market Survey &amp; Analysis Competition</b> · National Third Prize (Lead) — 12K JDs + 2,876 surveys, LDA topic mining + K-means + Logistic regression.</span><span class="zh"><b>第十四届全国大学生市场调查与分析大赛</b> · 国家级三等奖（负责人）——1.2 万条 JD + 2876 份问卷，LDA 主题挖掘 + K-means + Logistic 回归。</span></span><span class="ad">2024.12</span></li>
+            <li><span class="txt"><span class="en"><b>National College Student Math Competition</b> (Non-Math B) · First Prize</span><span class="zh"><b>全国大学生数学竞赛</b>（非数 B）· 一等奖</span></span><span class="ad">2024.12</span></li>
+            <li><span class="txt"><span class="en"><b>"Challenge Cup" Henan Business Plan Competition</b> · Provincial Silver — 200K+ pressure time-series, RL dynamic control, posture match 78%→92%.</span><span class="zh"><b>“挑战杯”河南省大学生创业计划竞赛</b> · 省级银奖——20 万+ 压力时序，强化学习动态控制，体位匹配度 78%→92%。</span></span><span class="ad">2024.6</span></li>
+            <li><span class="txt"><span class="en"><b>"Eastmoney Cup" National Finance Challenge</b> · Provincial Second Prize</span><span class="zh"><b>“东方财富杯”全国大学生金融挑战赛</b> · 省级二等奖</span></span><span class="ad">2024.6</span></li>
+            <li><span class="txt"><span class="en">SCU Outstanding Class Officer · Merit Scholarship · Outstanding Youth Volunteer · CPC Member</span><span class="zh">四川大学优秀班干部 · 单项奖学金 · 优秀青年志愿者 · 中共党员</span></span><span class="ad">2025 — Present</span></li>
           </ul>
         </div>
       </div>
