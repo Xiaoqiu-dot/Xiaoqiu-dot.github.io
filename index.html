@@ -1,135 +1,165 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>胡亚坤 · 大模型算法工程师</title>
-<meta name="description" content="胡亚坤 — 大模型算法工程师，专注 LLM 长上下文训练、推理引擎与评测体系。" />
+<title>Hu Yakun · LLM Algorithm Engineer</title>
+<meta name="description" content="Hu Yakun — LLM algorithm engineer working on long-context training, inference engines, and evaluation systems." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Serif+SC:wght@500;600&family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=Fira+Sans:wght@300;400;500;600;700&family=Source+Code+Pro:ital,wght@0,300..700;1,300..700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 <style>
 :root{
-  --paper:#ffffff; --paper-2:#f6f7f9; --ink:#191b1f; --ink-soft:#3f434b;
-  --muted:#8a8f98; --line:#e6e8ee; --accent:#2e6de6; --accent-soft:#7aa5f0;
-  --serif:"Newsreader","Noto Serif SC",Georgia,"Songti SC",serif;
-  --sans:"Inter","Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
-  --side:344px;
+  --bg:#eef0f3; --card:#ffffff; --nav:#33373d;
+  --ink:#20232a; --ink-soft:#4a4f57; --muted:#8b909a; --line:#e7e9ee;
+  --accent:#2f6fe0; --accent-soft:#7aa5f0;
+  --sans:"Lato","Fira Sans","Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  --sans-zh:"Noto Sans SC","PingFang SC","Microsoft YaHei","Lato",sans-serif;
+  --mono:"Source Code Pro",ui-monospace,Menlo,monospace;
+  --radius:0.8rem;
+  --shadow:0 6px 24px rgba(30,40,70,.07);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.75;-webkit-font-smoothing:antialiased;font-size:15.5px;letter-spacing:.1px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased;font-size:16px;padding-top:5rem}
+h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.25}
 a{color:var(--accent);text-decoration:none}
 a:hover{color:var(--ink)}
-::selection{background:var(--accent);color:var(--paper)}
+::selection{background:var(--accent);color:#fff}
 
-/* ===== layout: fixed sidebar + scrolling main ===== */
-.layout{display:flex;min-height:100vh}
-aside{
-  width:var(--side);flex-shrink:0;position:fixed;top:0;left:0;bottom:0;
-  padding:52px 40px;border-right:1px solid var(--line);
-  display:flex;flex-direction:column;background:var(--paper-2);overflow-y:auto;
-}
-main{margin-left:var(--side);flex:1;max-width:800px;padding:68px 68px 88px}
+/* language visibility */
+:root[data-lang="en"] .zh{display:none}
+:root[data-lang="zh"] .en{display:none}
 
-/* ===== sidebar ===== */
-.portrait{width:184px;height:245px;border-radius:10px;object-fit:cover;object-position:center;
-  filter:grayscale(5%);border:1px solid var(--line);box-shadow:0 12px 34px rgba(20,30,60,.12)}
-aside .name{font-family:var(--serif);font-size:2.15rem;font-weight:600;letter-spacing:.5px;margin-top:24px;line-height:1.1}
-aside .name .en{display:block;font-family:var(--mono);font-size:.8rem;color:var(--muted);letter-spacing:1px;margin-top:9px;font-weight:400}
-aside .title{font-size:1rem;color:var(--accent);margin-top:15px;font-weight:600;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:11px 0}
-aside .sub{font-size:.86rem;color:var(--ink-soft);margin-top:12px;line-height:1.6}
-.side-nav{margin-top:26px;display:flex;flex-direction:column;gap:2px}
-.side-nav a{font-family:var(--mono);font-size:.8rem;color:var(--muted);padding:5px 0;display:flex;align-items:center;gap:10px;transition:color .2s,padding .2s}
-.side-nav a::before{content:"";width:14px;height:1px;background:var(--muted);transition:width .2s,background .2s}
-.side-nav a:hover,.side-nav a.active{color:var(--ink)}
-.side-nav a:hover::before,.side-nav a.active::before{width:26px;background:var(--accent)}
-.side-foot{margin-top:auto;padding-top:26px;font-size:.82rem}
-.side-foot .row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-.side-foot a{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:var(--paper)}
-.side-foot a:hover{border-color:var(--accent);color:var(--accent)}
-.side-foot .copy{color:var(--muted);font-size:.74rem;font-family:var(--mono)}
-/* ===== main content ===== */
-.lead{font-family:var(--serif);font-size:1.5rem;line-height:1.6;color:var(--ink);font-weight:400;margin-bottom:8px}
-.lead .em{font-style:italic;color:var(--accent)}
-.intro-p{color:var(--ink-soft);font-size:1rem;margin-top:18px;max-width:660px}
+/* Chinese typography tuning: dedicated CJK font, looser tracking & line-height */
+:root[data-lang="zh"] body{font-family:var(--sans-zh);letter-spacing:.012em;line-height:1.78}
+:root[data-lang="zh"] .zh{font-family:var(--sans-zh)}
+:root[data-lang="zh"] h1,:root[data-lang="zh"] h2,:root[data-lang="zh"] h3,
+:root[data-lang="zh"] h4,:root[data-lang="zh"] .name,:root[data-lang="zh"] .exp-org,
+:root[data-lang="zh"] .mod .mh,:root[data-lang="zh"] .card .ct{font-family:var(--sans-zh);font-weight:700;letter-spacing:.02em}
+:root[data-lang="zh"] .about p,:root[data-lang="zh"] .mod p,
+:root[data-lang="zh"] .proj li,:root[data-lang="zh"] .awards li,
+:root[data-lang="zh"] .tl .desc,:root[data-lang="zh"] .skills-row .items{line-height:1.85}
+/* keep latin/mono tokens crisp even inside Chinese mode */
+.k,.pill,.exp-when,.tl .date,.emails,.card .cn,.stats .n{font-family:var(--mono);letter-spacing:0}
+.stats .n{font-family:"Lato","Source Code Pro",var(--mono);letter-spacing:0}
 
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:38px 0 8px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.stats .s{padding:18px 14px;border-right:1px solid var(--line)}
+/* ===== top navbar ===== */
+.navbar{position:fixed;top:0;left:0;right:0;height:4rem;background:var(--nav);opacity:.97;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,52px);color:#fff}
+.navbar .brand{font-size:1.4rem;font-weight:900;color:#fff;letter-spacing:.3px}
+.navbar .nav-right{display:flex;align-items:center;gap:22px}
+.navbar .nav-right a{color:#c8cbd1;font-size:.95rem;font-weight:400}
+.navbar .nav-right a:hover,.navbar .nav-right a.active{color:#fff}
+.lang-toggle{display:flex;border:1px solid #565b63;border-radius:7px;overflow:hidden;margin-left:6px}
+.lang-toggle button{font-family:var(--mono);font-size:.74rem;padding:5px 11px;border:none;background:transparent;color:#c8cbd1;cursor:pointer;transition:background .2s,color .2s}
+.lang-toggle button.active{background:var(--accent);color:#fff}
+.lang-toggle button:not(.active):hover{color:#fff}
+
+/* ===== page grid ===== */
+.wrap{max-width:1180px;margin:0 auto;padding:26px clamp(16px,3vw,28px) 60px;
+  display:grid;grid-template-columns:320px 1fr;gap:26px;align-items:start}
+
+/* ===== sidebar card ===== */
+.side{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 26px;
+  position:sticky;top:5.4rem;text-align:center}
+.side .portrait{width:210px;height:210px;max-width:100%;border-radius:12px;object-fit:cover;object-position:center;
+  filter:grayscale(4%);box-shadow:0 8px 22px rgba(20,30,60,.14)}
+.side .name{font-size:1.85rem;font-weight:900;margin-top:18px}
+.side .name .alt{display:block;font-size:1.05rem;font-weight:700;color:var(--muted);margin-top:4px}
+.side .role{font-size:1rem;color:var(--ink-soft);margin-top:12px;font-weight:400}
+.side .affil{font-size:.9rem;color:var(--ink-soft);margin-top:6px;line-height:1.55}
+.side .seeking{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-size:.82rem;font-weight:600;
+  color:#1f8a4c;background:color-mix(in srgb,#25a35a 12%,var(--card));border:1px solid color-mix(in srgb,#25a35a 32%,var(--card));
+  border-radius:999px;padding:5px 13px}
+.side .seeking b{color:#137a41}
+.side .seeking .dot{width:7px;height:7px;border-radius:50%;background:#25a35a;box-shadow:0 0 0 0 rgba(37,163,90,.5);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,163,90,.5)}70%{box-shadow:0 0 0 6px rgba(37,163,90,0)}100%{box-shadow:0 0 0 0 rgba(37,163,90,0)}}
+.side .emails{font-family:var(--mono);font-size:.82rem;color:var(--accent);margin-top:16px;word-break:break-all;line-height:1.7}
+.side .icons{display:flex;justify-content:center;gap:18px;margin-top:16px;font-size:1.3rem}
+.side .icons a{color:var(--accent);display:inline-flex}
+.side .icons a:hover{color:var(--ink)}
+/* ===== main content column ===== */
+.main{display:flex;flex-direction:column;gap:26px;min-width:0}
+.block{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:32px 38px;scroll-margin-top:5.4rem}
+.block h2{font-size:1.9rem;font-weight:700;margin-bottom:20px}
+.block h2.tight{margin-bottom:16px}
+
+/* about */
+.about p{color:var(--ink-soft);font-size:1.02rem}
+.about p + p{margin-top:14px}
+
+/* stats strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:22px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.stats .s{padding:16px 12px;border-right:1px solid var(--line);text-align:center}
 .stats .s:last-child{border-right:none}
-.stats .s .n{font-family:var(--serif);font-size:1.7rem;font-weight:600;color:var(--accent);line-height:1}
-.stats .s .l{font-size:.76rem;color:var(--muted);margin-top:6px}
+.stats .s .n{font-size:1.6rem;font-weight:900;color:var(--accent);line-height:1}
+.stats .s .l{font-size:.74rem;color:var(--muted);margin-top:6px}
 
-section{padding:46px 0;border-top:1px solid var(--line);scroll-margin-top:20px}
-section:first-of-type{border-top:none;padding-top:8px}
-.sec-title{display:flex;align-items:baseline;gap:14px;margin-bottom:26px}
-.sec-title .no{font-family:var(--mono);font-size:.8rem;color:var(--accent-soft)}
-.sec-title h2{font-family:var(--serif);font-size:1.7rem;font-weight:600;letter-spacing:.3px}
+/* two-column row (education | awards) */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:820px){.cols{grid-template-columns:1fr;gap:22px}}
 
-/* entries */
-.entry{margin-bottom:34px;position:relative}
-.entry .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.entry h3{font-size:1.1rem;font-weight:600}
-.entry h3 a{color:var(--ink)}
-.entry h3 a:hover{color:var(--accent)}
-.entry .when{font-family:var(--mono);font-size:.78rem;color:var(--muted);white-space:nowrap}
-.entry .org{color:var(--accent);font-size:.92rem;font-weight:500;margin-top:2px}
-.entry .org .thin{color:var(--muted);font-weight:400}
-.entry ul{margin:12px 0 0;padding-left:0;list-style:none}
-.entry li{color:var(--ink-soft);font-size:.93rem;margin-bottom:10px;padding-left:18px;position:relative}
-.entry li::before{content:"—";position:absolute;left:0;color:var(--accent-soft)}
-.entry li b{color:var(--ink);font-weight:600}
-.entry li .k{font-family:var(--mono);font-size:.86em;color:var(--accent);background:var(--paper-2);padding:1px 5px;border-radius:3px}
+/* timeline entries */
+.tl{margin-top:4px}
+.tl .row{display:flex;justify-content:space-between;gap:14px;align-items:baseline;flex-wrap:wrap}
+.tl h4{font-size:1.12rem;font-weight:700}
+.tl .date{font-family:var(--mono);font-size:.82rem;color:var(--muted);font-style:italic;white-space:nowrap}
+.tl .desc{color:var(--ink-soft);font-size:.92rem;margin:2px 0 16px}
+.tl .desc .role{color:var(--accent)}
 
-/* module blocks inside an entry */
-.mod{margin-top:20px;padding-left:16px;border-left:2px solid var(--line)}
+/* experience modules */
+.exp-org{color:var(--accent);font-weight:700;font-size:1.06rem}
+.exp-org .thin{color:var(--muted);font-weight:400;font-size:.9rem}
+.exp-when{font-family:var(--mono);font-size:.82rem;color:var(--muted);font-style:italic}
+.exp-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;margin-bottom:6px}
+.k{font-family:var(--mono);font-size:.84em;color:var(--accent);background:var(--bg);padding:1px 6px;border-radius:4px}
+.stack{color:var(--muted);font-size:.86rem;margin-bottom:6px}
+.mod{margin-top:18px;padding-left:16px;border-left:3px solid var(--line)}
 .mod:hover{border-left-color:var(--accent-soft)}
-.mod .mh{font-size:.98rem;font-weight:600;color:var(--ink);display:flex;align-items:baseline;gap:9px}
-.mod .mh .tag{font-family:var(--mono);font-size:.68rem;color:var(--accent);border:1px solid var(--accent-soft);border-radius:4px;padding:1px 6px;font-weight:500}
-.mod p{color:var(--ink-soft);font-size:.92rem;margin-top:7px}
-.mod p b{color:var(--ink);font-weight:600}
-.mod .k{font-family:var(--mono);font-size:.86em;color:var(--accent);background:var(--paper-2);padding:1px 5px;border-radius:3px}
+.mod .mh{font-size:1rem;font-weight:700;color:var(--ink);display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.mod .mh .tag{font-family:var(--mono);font-size:.66rem;color:var(--accent);border:1px solid var(--accent-soft);border-radius:4px;padding:1px 6px;font-weight:600}
+.mod p{color:var(--ink-soft);font-size:.93rem;margin-top:7px}
+.mod p b,.about b,.proj li b{color:var(--ink);font-weight:700}
 
-/* project pills */
+/* projects */
+.proj{margin-top:4px}
+.proj + .proj{margin-top:26px;padding-top:26px;border-top:1px solid var(--line)}
+.proj ul{margin:10px 0 0;padding-left:0;list-style:none}
+.proj li{color:var(--ink-soft);font-size:.93rem;margin-bottom:9px;padding-left:18px;position:relative}
+.proj li::before{content:"—";position:absolute;left:0;color:var(--accent-soft)}
 .pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
-.pill{font-family:var(--mono);font-size:.74rem;padding:4px 10px;border:1px solid var(--line);border-radius:5px;color:var(--ink-soft);background:var(--paper)}
-.pill.hot{color:var(--accent);border-color:var(--accent-soft);background:color-mix(in srgb,var(--accent) 6%,var(--paper))}
-
-/* bug/detail cards */
+.pill{font-family:var(--mono);font-size:.74rem;padding:4px 10px;border:1px solid var(--line);border-radius:5px;color:var(--ink-soft);background:var(--card)}
+.pill.hot{color:var(--accent);border-color:var(--accent-soft);background:color-mix(in srgb,var(--accent) 6%,var(--card))}
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-.card{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:var(--paper-2)}
-.card .ct{font-size:.9rem;font-weight:600;color:var(--ink)}
-.card .cn{font-family:var(--mono);font-size:.68rem;color:var(--accent-soft)}
-.card p{color:var(--ink-soft);font-size:.85rem;margin-top:6px;line-height:1.6}
+.card{border:1px solid var(--line);border-radius:8px;padding:13px 15px;background:var(--bg)}
+.card .cn{font-family:var(--mono);font-size:.66rem;color:var(--accent-soft)}
+.card .ct{font-size:.9rem;font-weight:700;color:var(--ink);margin-top:2px}
+.card p{color:var(--ink-soft);font-size:.84rem;margin-top:6px;line-height:1.55}
 
 /* skills */
-.skills-row{display:flex;gap:16px;margin-bottom:16px;align-items:baseline;flex-wrap:wrap}
-.skills-row .cat{font-family:var(--mono);font-size:.8rem;color:var(--accent);min-width:96px;flex-shrink:0}
-.skills-row .items{color:var(--ink-soft);font-size:.92rem}
+.skills-row{display:flex;gap:16px;margin-bottom:14px;align-items:baseline;flex-wrap:wrap}
+.skills-row .cat{font-family:var(--mono);font-size:.82rem;color:var(--accent);min-width:130px;flex-shrink:0}
+.skills-row .items{color:var(--ink-soft);font-size:.93rem}
 
-/* honors */
-.honors{columns:1;list-style:none}
-.honors li{color:var(--ink-soft);font-size:.92rem;margin-bottom:9px;padding-left:20px;position:relative}
-.honors li::before{content:"✦";position:absolute;left:0;color:var(--accent-soft);font-size:.8rem}
-.honors li b{color:var(--ink);font-weight:600}
+/* awards list */
+.awards{list-style:none}
+.awards li{color:var(--ink-soft);font-size:.92rem;margin-bottom:11px;padding-left:20px;position:relative}
+.awards li::before{content:"✦";position:absolute;left:0;color:var(--accent-soft);font-size:.8rem}
+.awards li b{color:var(--ink);font-weight:700}
 
-/* reveal — CSS-only, always ends visible even if JS is disabled */
-.reveal{animation:fadeUp .7s cubic-bezier(.2,.7,.2,1) both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-section:nth-of-type(2) .reveal{animation-delay:.05s}
-section:nth-of-type(3) .reveal{animation-delay:.1s}
+/* reveal */
+.reveal{animation:fadeUp .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* mobile */
 @media(max-width:900px){
-  :root{--side:0px}
-  .layout{flex-direction:column}
-  aside{position:relative;width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;gap:20px;padding:32px 28px;border-right:none;border-bottom:1px solid var(--line)}
-  aside .name{margin-top:0}
-  .portrait{width:92px;height:123px}
-  .side-nav{display:none}
-  .side-foot{margin:0;padding:0;width:100%}
-  main{margin-left:0;padding:40px 26px 60px;max-width:100%}
+  body{padding-top:4rem}
+  .navbar .nav-right a:not(.lang-wrap){display:none}
+  .wrap{grid-template-columns:1fr;gap:22px;padding-top:18px}
+  .side{position:relative;top:0}
+  .block{padding:26px 22px}
+  .block h2{font-size:1.6rem}
   .stats{grid-template-columns:repeat(2,1fr)}
   .stats .s:nth-child(2){border-right:none}
   .cards{grid-template-columns:1fr}
@@ -137,189 +167,231 @@ section:nth-of-type(3) .reveal{animation-delay:.1s}
 </style>
 </head>
 <body>
-<div class="layout">
-  <aside>
-    <img class="portrait" src="assets/profile.jpg" alt="胡亚坤" />
-    <div class="name">胡亚坤<span class="en">HU YAKUN</span></div>
-    <div class="title">大模型算法工程师</div>
-    <div class="sub">长上下文训练 · 推理引擎 · 评测归因</div>
 
-    <nav class="side-nav" id="sideNav">
-      <a href="#about">关于</a>
-      <a href="#exp">实习经历</a>
-      <a href="#projects">项目经历</a>
-      <a href="#edu">教育背景</a>
-      <a href="#skills">专业技能</a>
-      <a href="#honors">竞赛获奖</a>
-    </nav>
+<nav class="navbar">
+  <span class="brand">Hu Yakun</span>
+  <div class="nav-right">
+    <a href="#about" class="active"><span class="en">Home</span><span class="zh">首页</span></a>
+    <a href="#exp"><span class="en">Experience</span><span class="zh">实习</span></a>
+    <a href="#projects"><span class="en">Projects</span><span class="zh">项目</span></a>
+    <a href="#awards"><span class="en">Awards</span><span class="zh">获奖</span></a>
+    <span class="lang-wrap"><span class="lang-toggle" id="langToggle">
+      <button data-set="en" class="active">EN</button>
+      <button data-set="zh">中文</button>
+    </span></span>
+  </div>
+</nav>
 
-    <div class="side-foot">
-      <div class="row">
-        <a href="https://github.com/Xiaoqiu-dot" target="_blank" rel="noopener">GitHub</a>
-        <a href="mailto:15093634574@163.com">Email</a>
-      </div>
-      <div class="copy">© <span id="yr"></span> Hu Yakun</div>
+<div class="wrap">
+  <!-- ===== sidebar ===== -->
+  <aside class="side reveal">
+    <img class="portrait" src="assets/profile.jpg" alt="Hu Yakun" />
+    <div class="name">
+      <span class="en">Hu Yakun<span class="alt">胡亚坤</span></span>
+      <span class="zh">胡亚坤<span class="alt">HU YAKUN</span></span>
+    </div>
+    <div class="role"><span class="en">LLM Algorithm Intern</span><span class="zh">大模型算法实习生</span></div>
+    <div class="affil">
+      <span class="en">Baidu · LLM Infrastructure (BMU)<br/>Sichuan University · M.S. Applied Statistics</span>
+      <span class="zh">百度 · 大模型基建部（BMU）<br/>四川大学 · 应用统计硕士</span>
+    </div>
+    <div class="seeking">
+      <span class="dot"></span>
+      <span class="en">Open to roles: <b>LLM Algorithm Engineer</b></span>
+      <span class="zh">求职方向：<b>大模型算法工程师</b></span>
+    </div>
+    <div class="emails">["15093634574(at)163.com"]</div>
+    <div class="icons">
+      <a href="https://github.com/Xiaoqiu-dot" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      </a>
+      <a href="mailto:15093634574@163.com" aria-label="Email">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7L22 6"/></svg>
+      </a>
     </div>
   </aside>
 
-  <main>
-    <section id="about" class="reveal">
-      <p class="lead">以<span class="em">统计</span>为底、以<span class="em">系统</span>为器，做能落地的大模型工程。</p>
-      <p class="intro-p">
-        四川大学应用统计（大数据分析）硕士，现于百度大模型基建部（BMU）参与大模型研发的
-        <b>数据 → 训练 → 评测 → 训练基建</b>完整链路。专注长上下文（8K→128K）CPT/SFT 训练、
-        vLLM 推理引擎实现与优化，以及从 0 到 1 的评测体系搭建。既能做数据质检与错误归因的算法内核，
-        也能下钻到 CUDA / 张量并行的系统实现。
+  <!-- ===== main ===== -->
+  <div class="main">
+
+    <!-- About -->
+    <section class="block about reveal" id="about">
+      <h2><span class="en">About Me</span><span class="zh">关于我</span></h2>
+      <p>
+        <span class="en">Hi, I'm Hu Yakun — welcome to my homepage. I hold a B.S. in Economic Statistics from Henan University and am currently an M.S. student in Applied Statistics (Big Data Analytics) at Sichuan University. I now work as an <b>LLM algorithm intern</b> at Baidu's LLM Infrastructure department (BMU), across the full <b>data → training → evaluation → infrastructure</b> pipeline.</span>
+        <span class="zh">你好，我是胡亚坤，欢迎来到我的主页。我本科毕业于河南大学经济统计学，目前是四川大学应用统计（大数据分析）方向的硕士研究生。现于百度大模型基建部（BMU）担任<b>大模型算法实习生</b>，工作贯穿<b>数据、训练、评测、训练基建</b>的完整链路。</span>
+      </p>
+      <p>
+        <span class="en">My work centers on <b>long-context (8K→128K) CPT/SFT training</b>, <b>vLLM inference-engine implementation and optimization</b>, and building an <b>evaluation-and-attribution system</b> from scratch. I enjoy moving between the algorithmic core — data QA, error attribution, statistical methodology — and the systems layer — CUDA, tensor parallelism, memory lifecycle. I'm now looking for full-time <b>LLM Algorithm Engineer</b> roles; feel free to reach out for collaboration.</span>
+        <span class="zh">我的工作重心在于<b>长上下文（8K → 128K）CPT / SFT 训练</b>、<b>vLLM 推理引擎的自研实现与优化</b>，以及从零到一搭建<b>评测与归因体系</b>。我习惯在算法内核（数据质检、错误归因、统计方法学）与系统底层（CUDA、张量并行、显存生命周期）之间来回打通。目前正寻求<b>大模型算法工程师</b>方向的全职机会，欢迎交流与合作。</span>
       </p>
       <div class="stats">
-        <div class="s"><div class="n">128K</div><div class="l">长上下文训练</div></div>
-        <div class="s"><div class="n">128</div><div class="l">卡 H800 规模</div></div>
-        <div class="s"><div class="n">3.91×</div><div class="l">推理端到端提速</div></div>
-        <div class="s"><div class="n">11</div><div class="l">评测 Benchmark</div></div>
+        <div class="s"><div class="n">128K</div><div class="l"><span class="en">long-context</span><span class="zh">长上下文</span></div></div>
+        <div class="s"><div class="n">128</div><div class="l"><span class="en">H800 GPUs</span><span class="zh">卡 H800 集群</span></div></div>
+        <div class="s"><div class="n">3.91×</div><div class="l"><span class="en">E2E speedup</span><span class="zh">推理端到端提速</span></div></div>
+        <div class="s"><div class="n">11</div><div class="l"><span class="en">benchmarks</span><span class="zh">评测 Benchmark</span></div></div>
       </div>
     </section>
 
-    <section id="exp">
-      <div class="sec-title reveal"><span class="no">01</span><h2>实习经历</h2></div>
-      <div class="entry reveal">
-        <div class="head">
-          <h3>大模型算法实习生</h3>
-          <span class="when">2026.01 — 至今</span>
+    <!-- Experience -->
+    <section class="block reveal" id="exp">
+      <h2><span class="en">Experience</span><span class="zh">实习经历</span></h2>
+      <div class="exp-head">
+        <span class="exp-org"><span class="en">Baidu · LLM Infrastructure (BMU)</span><span class="zh">百度 · 大模型基建部（BMU）</span> <span class="thin"><span class="en">· LLM Algorithm Intern</span><span class="zh">· 大模型算法实习生</span></span></span>
+        <span class="exp-when">2026.01 — Present</span>
+      </div>
+      <div class="stack"><span class="en">Stack:</span><span class="zh">技术栈：</span> <span class="k">PyTorch</span> <span class="k">FSDP</span> <span class="k">DeepSpeed-Ulysses</span> <span class="k">varlen FlashAttention</span> <span class="k">RoPE Scaling</span> <span class="k">Megatron</span> <span class="k">ms-swift</span> <span class="k">vLLM</span> <span class="k">HELMET/RULER/LongBench</span></div>
+
+      <div class="mod">
+        <div class="mh"><span class="en">Coding-Agent Data QA &amp; Model Capability Evaluation</span><span class="zh">Coding Agent 数据质检与模型能力评估</span> <span class="tag">DATA</span></div>
+        <p>
+          <span class="en">Led full-pipeline QA of the in-house Coding Agent's training data — covering SFT (427K steps), midtrain (600K) and pretrain (~89.4B) across three stages, million-scale in total — diagnosing distribution imbalance from 6+ label dimensions and flagging 88 below-median metrics and 31 P0-level data gaps. Using Cochran-formula sampling over <b>9,307 real sessions and 106K tool calls</b>, I built <b>12 behavioral metrics</b> across 4 mainstream models, pinpointing Agent-tool success of only <b>16.7%–18.2%</b> (vs 96.8% for dedicated tools), blind-edit rate &gt;50%, and hallucination rising 2.2%→10% as sessions grow. A three-tier confidence difficulty-labeling pipeline (rule alignment + passrate cross-check + LightGBM fallback) reached <b>69.6% coverage, 87% cross-agreement</b>.</span>
+          <span class="zh">主导公司自研 Coding Agent 训练数据的全链路质检，覆盖 SFT（42.7 万 steps）、midtrain（60 万条）、预训练（约 894 亿条）三阶段共<b>百万级</b>数据，从 6+ 标签维度诊断分布失衡，识别 88 项低于中位数指标、31 项 P0 级数据空白，形成可执行补数清单。基于科克伦公式对 <b>9,307 个线上真实会话、10.6 万次工具调用</b>抽样，构建 <b>12 项模型行为质检指标</b>横向对比 4 个主流模型，定位 Agent 类工具成功率仅 <b>16.7%–18.2%</b>（专用工具达 96.8%）、盲编辑率 &gt;50%、幻觉率随会话增长由 2.2% 升至 10% 等结构性缺陷。并设计<b>三层置信度难度标注流水线</b>（规则对齐 → passrate 交叉验证 → LightGBM 兜底），难度覆盖 <b>69.6%</b>、交叉一致率 <b>87%</b>，支撑训练数据按难度配比。</span>
+        </p>
+      </div>
+
+      <div class="mod">
+        <div class="mh"><span class="en">Long-Context Training of Llama-3-8B on ProLong</span><span class="zh">基于 ProLong 的 Llama-3-8B 长上下文训练</span> <span class="tag">TRAINING</span></div>
+        <p>
+          <span class="en">On <span class="k">128× H800</span> with the ProLong self-built stack (FSDP + SP=8 DeepSpeed-Ulysses + varlen FlashAttention), completed CPT+SFT of Llama-3-8B from <b>8K→128K</b> across <b>100+ runs</b>. Extended length via <b>RoPE base scaling (5e5→2e8)</b> and raised varlen-packing fill rate from <b>~72% to 96%+</b>. Built a unified "sample → MDS pack → auto-step → CPT → SFT → eval" pipeline serving a 7-person data team over 10+ long-text data types. Ablations located key configs: inter-doc EOS gave JSON-KV / RULER-MK3 <b>+23 / +28</b>; over-aggressive loss masking caused catastrophic forgetting (Retrieval-mask <b>47.39→9.57</b>), so I proposed negative-example down-weighting over hard masking.</span>
+          <span class="zh">在 <span class="k">128 卡 H800</span> 集群上，基于 ProLong 自研训练栈（FSDP + 序列并行 SP=8 DeepSpeed-Ulysses + 变长 FlashAttention）完成 Llama-3-8B 从 <b>8K 扩展到 128K</b> 的 CPT + SFT 全流程，累计 <b>100+ 个 run</b>。通过 <b>RoPE base 放大（5e5 → 2e8）</b>实现长度外推，变长序列打包将 fill rate 由 <b>约 72% 提升至 96%+</b>。搭建「采样 → MDS 打包 → 自动算步数 → CPT → SFT → 评测」统一基建，支撑 7 人数据团队、覆盖 10+ 类长文数据。通过对照实验确定关键配置：文档间加 EOS 使 JSON-KV / RULER-MK3 分别 <b>+23 / +28</b> 分；定位过度 loss mask 导致的灾难性遗忘（Retrieval-mask 均值 <b>47.39 → 9.57</b>），据此提出以负例降权替代硬屏蔽。</span>
+        </p>
+      </div>
+
+      <div class="mod">
+        <div class="mh"><span class="en">ms-swift + Megatron Migration &amp; Performance Tuning</span><span class="zh">ms-swift + Megatron 训练基建迁移与性能调优</span> <span class="tag">INFRA</span></div>
+        <p>
+          <span class="en">Validated the migration to the new training stack: under identical model / data / config, per-GPU throughput rose <b>2,780→3,077 tok/s (+10.7%)</b>, MFU <b>28.0%→30.9%</b>; enabling FlashAttention 3, RoPE fusion and TP2+CP4 pushed it to <b>4,161 tok/s (+49.7%)</b>, MFU <b>42.8%</b>. Final-50-step average loss differed only ~0.3% and dual runs nearly overlapped — confirming the tuning didn't hurt convergence.</span>
+          <span class="zh">参与训练新基建的迁移验证：在同模型、同数据、同配置下，每卡吞吐由 <b>2,780 提升至 3,077 tok/s（+10.7%）</b>、MFU 从 <b>28.0% 升至 30.9%</b>；进一步启用 FlashAttention 3、RoPE Fusion 与 TP2 + CP4 后，吞吐达 <b>4,161 tok/s（+49.7%）</b>、MFU <b>42.8%</b>。CPT 末 50 步平均 loss 差异仅约 0.3%，两次运行的曲线基本重合，验证性能优化未影响模型收敛。</span>
+        </p>
+      </div>
+
+      <div class="mod">
+        <div class="mh"><span class="en">Building the Long-Context Evaluation System</span><span class="zh">长文本评测体系从 0 到 1 搭建</span> <span class="tag">EVAL</span></div>
+        <p>
+          <span class="en">Built from scratch an eval system covering <b>6 long-text + 5 short-text = 11 benchmarks</b> (HELMET spans 7 capability dims; ~32K short-text samples across 32K/64K/128K) on multi-node vLLM (TP=4/8), running full Llama-3.1-8B evaluations. Developed a 4-module analysis platform — leaderboard / dashboard / badcase attribution / case viewer — plus the <b>BenchPilot</b> assistant, and added <b>GT Loss</b> as a complementary signal alongside generative scores. A statistical stability methodology (σ-floor + multi-seed) proved reproducibility (HELMET / RULER variance <b>&lt;0.05</b>), and I traced platform anomalies (rerank all-zero, JSON-KV off by 60+) to chat-vs-completion prompt-template differences rather than model capability.</span>
+          <span class="zh">从 0 到 1 搭建覆盖 <b>6 类长文本 + 5 类短文本共 11 个 benchmark</b> 的评测体系（HELMET 单项即含 7 个能力维度，短文本约 3.2 万+ 样本，跨 32K / 64K / 128K），基于 vLLM 多节点并行（TP=4/8）跑通 Llama-3.1-8B 全量评测。开发榜单 / 看板 / Badcase 归因 / Case 展示 4 模块分析平台与 <b>BenchPilot</b> 智能分析助手，并在生成式分数之外落地 <b>GT Loss</b> 作补充信号。以统计方法学（σ_floor 噪声地板 + 多种子）证明评测可复现（HELMET / RULER 波动 <b>&lt;0.05</b>），并将 Rerank 全 0、JSON-KV 相差 60+ 分等平台侧异常根因定位到 chat 与 completion 的 prompt 模板差异，而非模型能力本身。</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Education | Awards (two columns) -->
+    <div class="cols">
+      <section class="block reveal" id="edu">
+        <h2 class="tight"><span class="en">Education</span><span class="zh">教育背景</span></h2>
+        <div class="tl">
+          <div class="row"><h4><span class="en">Sichuan University</span><span class="zh">四川大学</span></h4><span class="date">2025.09 — Present</span></div>
+          <div class="desc"><span class="en">M.S. Applied Statistics (Big Data Analytics), School of Mathematics <span style="color:var(--muted)">· 985/211</span></span><span class="zh">应用统计（大数据分析）· 数学学院 · 硕士 <span style="color:var(--muted)">· 985/211</span></span></div>
+          <div class="row"><h4><span class="en">Henan University</span><span class="zh">河南大学</span></h4><span class="date">2021.09 — 2025.06</span></div>
+          <div class="desc"><span class="en">B.S. Economic Statistics, School of Economics <span style="color:var(--muted)">· Double First-Class</span></span><span class="zh">经济统计学 · 经济学院 · 本科 <span style="color:var(--muted)">· 双一流</span></span></div>
         </div>
-        <div class="org">百度在线网络技术（北京）有限公司 · 大模型基建部（BMU） <span class="thin">· 数据 / 训练 / 评测 / 基建全链路</span></div>
-        <ul>
-          <li>技术栈：<span class="k">PyTorch</span> <span class="k">FSDP</span> <span class="k">DeepSpeed-Ulysses</span> <span class="k">变长 FlashAttention</span> <span class="k">RoPE Scaling</span> <span class="k">Megatron</span> <span class="k">ms-swift</span> <span class="k">vLLM</span> <span class="k">HELMET / RULER / LongBench</span></li>
+      </section>
+
+      <section class="block reveal" id="awards">
+        <h2 class="tight"><span class="en">Honors &amp; Awards</span><span class="zh">竞赛获奖</span></h2>
+        <ul class="awards">
+          <li><span class="en"><b>22nd China Postgraduate Math Contest in Modeling</b> · National Third Prize (Lead) — rock-fracture recognition &amp; 3D reconstruction (RF AUC 0.866 + nnU-Net), robustness +23%.</span><span class="zh"><b>“华为杯”第二十二届中国研究生数学建模竞赛</b> · 国家级三等奖（负责人）——围岩裂隙识别与三维重构（随机森林 AUC 0.866 + nnU-Net），鲁棒性 +23%。</span></li>
+          <li><span class="en"><b>14th National Market Survey &amp; Analysis Competition</b> · National Third Prize (Lead) — 12K JDs + 2,876 surveys, LDA topic mining + K-means + Logistic regression.</span><span class="zh"><b>第十四届全国大学生市场调查与分析大赛</b> · 国家级三等奖（负责人）——1.2 万条 JD + 2876 份问卷，LDA 主题挖掘 + K-means + Logistic 回归。</span></li>
+          <li><span class="en"><b>2024 "Challenge Cup" Henan Business Plan Competition</b> · Provincial Silver — 200K+ pressure time-series, RL dynamic control, posture match 78%→92%.</span><span class="zh"><b>2024 “挑战杯”河南省创业计划竞赛</b> · 省级银奖——20 万+ 压力时序，强化学习动态控制，体位匹配度 78%→92%。</span></li>
+          <li><span class="en">National College Student Math Competition (Non-Math B) · First Prize</span><span class="zh">全国大学生数学竞赛（非数 B）· 一等奖</span></li>
+          <li><span class="en">"Eastmoney Cup" National Finance Challenge · Provincial Second Prize</span><span class="zh">“东方财富杯”全国大学金融挑战赛省赛 · 二等奖</span></li>
+          <li><span class="en">SCU Outstanding Class Officer · Merit Scholarship · CPC Member</span><span class="zh">四川大学优秀班干部 · 单项奖学金 · 中共党员</span></li>
         </ul>
+      </section>
+    </div>
 
-        <div class="mod">
-          <div class="mh">Coding Agent 数据质检与模型能力评估 <span class="tag">数据</span></div>
-          <p>面向公司自研 Coding Agent 线上轨迹，独立设计并上线数据质检 Skill（<b>累计使用 200+ 次</b>），沉淀 8 类失败轨迹检测规则与「删除 / 修复 / 拦截 / 清洗」处置策略。基于科克伦公式抽样 <b>9,307 个真实会话、10.6 万次工具调用</b>，构建 12 项行为指标横向对比 4 个主流模型，定位工具调用成功率仅 <b>16.7%–18.2%</b>、盲编辑率 &gt;50%、长会话幻觉率 2.2%→10% 等结构性问题。设计三层置信度难度标注流水线（规则 + passrate + LightGBM），难度覆盖 69.6%、交叉一致率 87%。</p>
-        </div>
-
-        <div class="mod">
-          <div class="mh">基于 ProLong 的 Llama-3.1-8B 长上下文训练 <span class="tag">训练</span></div>
-          <p>在 <span class="k">128 卡 H800</span> 上基于 ProLong 训练栈（FSDP + SP=8 + 变长 FlashAttention + RoPE Base 放大），完成 Llama-3.1-8B 从 <b>8K→128K</b> 的 CPT+SFT，累计 <b>150+ 个训练及配置实验</b>。搭建「采样 → MDS 打包 → 自动步数 → CPT → SFT → 评测」统一流程，覆盖 10+ 类长文数据，变长打包将 Fill Rate 从 <b>~72% 提升至 96%+</b>。消融实验：EOS 使 JSON-KV / RULER-MK3 分别 +23 / +28 分；定位过度 Loss Mask 导致灾难性遗忘（综合均分 <b>47.39→9.57</b>），提出负例降权替代完全屏蔽。</p>
-        </div>
-
-        <div class="mod">
-          <div class="mh">ms-swift + Megatron 新基建迁移与性能优化 <span class="tag">基建</span></div>
-          <p>参与训练新基建迁移验证：同模型 / 同数据 / 同配置下，每卡吞吐 <b>2,780→3,077 tok/s（+10.7%）</b>、MFU <b>28.0%→30.9%</b>；进一步启用 FlashAttention 3、RoPE Fusion 与 TP2+CP4，将吞吐提升至 <b>4,161 tok/s（较旧基建 +49.7%）</b>、MFU <b>42.8%</b>。CPT 末 50 步平均 Loss 差异约 0.3%、双次运行曲线基本重合，证明优化未影响收敛稳定性。</p>
-        </div>
-
-        <div class="mod">
-          <div class="mh">长文本评测体系搭建 <span class="tag">评测</span></div>
-          <p>从 0 到 1 搭建覆盖 <b>6 类长文本 + 5 类短文本共 11 个 Benchmark</b> 的评测体系（32K/64K/128K + 约 3.2 万条短文样本），基于 vLLM 多节点并行（TP=4/8）完成全量评测。开发榜单 / 看板 / Badcase 归因 / Case 展示 4 模块与 <b>BenchPilot</b> 智能分析助手；融合生成式分数与 <b>GT Loss</b> 双信号区分真实退化与格式解析问题；3 次重复实验验证 HELMET / RULER 波动 &lt;0.05，并定位 Rerank 全 0、JSON-KV 相差 60+ 分等平台侧异常根因。</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="sec-title reveal"><span class="no">02</span><h2>项目经历</h2></div>
-      <div class="entry reveal">
-        <div class="head">
-          <h3><a href="https://github.com/Xiaoqiu-dot/MinivLLM-Fixed" target="_blank" rel="noopener">MinivLLM 推理引擎实现与 Qwen3-32B 多卡部署 ↗</a></h3>
-          <span class="when">2026.06 — 07 · 个人项目</span>
+    <!-- Projects -->
+    <section class="block reveal" id="projects">
+      <h2><span class="en">Projects</span><span class="zh">项目经历</span></h2>
+      <div class="proj">
+        <div class="exp-head">
+          <span class="exp-org"><a href="https://github.com/Xiaoqiu-dot/MinivLLM-Fixed" target="_blank" rel="noopener"><span class="en">MinivLLM Inference Engine &amp; Multi-GPU Qwen3-32B Deployment</span><span class="zh">MinivLLM 推理引擎实现与 Qwen3-32B 多卡部署</span> ↗</a></span>
+          <span class="exp-when"><span class="en">2026.06 — 07 · Personal</span><span class="zh">2026.06 — 07 · 个人项目</span></span>
         </div>
         <ul>
-          <li>基于开源 Nano-vLLM / MinivLLM 复现可完整端到端运行的最小化 LLM 推理引擎，在 <span class="k">1 机 8 卡 H800</span> 上以张量并行实际部署 <b>Qwen3-32B（约 320 亿参数）</b>跑通完整推理链路（HF 权重 TP 分片 → prefill/decode → 输出）。</li>
-          <li>系统实现 <b>PagedAttention 分页 KV Cache + 前缀缓存</b>（内容 hash + 引用计数跨请求复用）、<b>prefill/decode 两阶段调度</b>（双队列 + 优先 + 抢占）、<b>张量并行</b>（Column/Row/Merged/QKV 四类并行线性层）与 <b>CUDA Graph</b> 消除 decode kernel 启动开销，配合 Triton kernel、FlashAttention、torch.compile。</li>
-          <li>设计 4 类端到端压力测试实测 Qwen3-32B（TP=2 · BF16 + CUDA Graph）；踩坑并修复 <b>4 类系统级 Bug</b>——分别命中 TP 通信、显存生命周期、多进程故障恢复、CUDA Graph 正确性，全部可 commit 追溯。</li>
+          <li><span class="en">Reproduced a fully end-to-end minimal LLM inference engine on Nano-vLLM / MinivLLM, deploying <b>Qwen3-32B (~32B params)</b> with tensor parallelism on <span class="k">1 node × 8 H800</span>.</span><span class="zh">基于 Nano-vLLM / MinivLLM 复现了一套可完整端到端运行的最小化推理引擎，并在 <span class="k">单机 8 卡 H800</span> 上以张量并行部署 <b>Qwen3-32B（约 320 亿参数）</b>，跑通完整推理链路。</span></li>
+          <li><span class="en">Implemented <b>PagedAttention + prefix cache</b>, <b>two-stage prefill/decode scheduling</b> (dual queues + priority + preemption), <b>tensor parallelism</b> (Column/Row/Merged/QKV), and <b>CUDA Graph</b> — with Triton kernels, FlashAttention, torch.compile.</span><span class="zh">系统实现了 <b>PagedAttention 分页 KV Cache 与前缀缓存</b>、<b>prefill / decode 两阶段调度</b>（双队列 + 优先级 + 抢占）、<b>张量并行</b>（Column / Row / Merged / QKV）以及 <b>CUDA Graph</b>，并结合 Triton kernel、FlashAttention 与 torch.compile。</span></li>
+          <li><span class="en">Designed 4 end-to-end stress tests (TP=2 · BF16 + CUDA Graph); found and fixed <b>4 system-level bugs</b> across TP comm, memory lifecycle, multi-process recovery, and CUDA Graph correctness.</span><span class="zh">设计了 4 类端到端压力测试（TP=2 · BF16 + CUDA Graph），排查并修复 <b>4 类系统级 Bug</b>，分别命中 TP 通信、显存生命周期、多进程故障恢复与 CUDA Graph 正确性。</span></li>
         </ul>
         <div class="pills">
           <span class="pill hot">Prefill 5,954 tok/s</span>
-          <span class="pill hot">端到端输出 201 tok/s</span>
-          <span class="pill hot">端到端 3.91×</span>
-          <span class="pill">Prefix 命中 98.69%</span>
+          <span class="pill hot"><span class="en">E2E 3.91×</span><span class="zh">端到端 3.91×</span></span>
+          <span class="pill"><span class="en">Prefix hit 98.69%</span><span class="zh">Prefix 命中 98.69%</span></span>
           <span class="pill">31.9s → 1.087s</span>
-          <span class="pill">单请求 32,768 tokens</span>
+          <span class="pill"><span class="en">32,768 tokens/req</span><span class="zh">单请求 32,768 tokens</span></span>
         </div>
         <div class="cards">
-          <div class="card"><div class="cn">BUG 01 · TP 通信</div><div class="ct">BF16 Logit Gather 类型不匹配</div><p>rank 0 用默认 FP32 建接收 tensor，与各 rank BF16 输出 dtype 混用致 dist.gather 抛错 → 改用 torch.empty_like 继承 BF16。</p></div>
-          <div class="card"><div class="cn">BUG 02 · 显存生命周期</div><div class="ct">KV Cache 容量按错误峰值 OOM 误判</div><p>warmup 峰值混入编译期一次性分配 → 两次同步 warmup，第二次测稳态显存，容量只用稳态峰值。</p></div>
-          <div class="card"><div class="cn">BUG 03 · 多进程恢复</div><div class="ct">TP Worker 失败不回收泄漏显存</div><p>rank 0 异常后 rank 1 狂刷 Broken pipe → finally 销毁 process group + 幂等有界清理（SIGTERM → join → kill）。</p></div>
-          <div class="card"><div class="cn">BUG 04 · CUDA Graph</div><div class="ct">选错 batch 档 + Padding 污染 KV</div><p>取 min(graph_bs≥bs) 选最小合适档；replay 前清零 padding、slot_mapping 填 -1，只拷活跃 row。</p></div>
+          <div class="card"><div class="cn">BUG 01 · TP COMM</div><div class="ct"><span class="en">BF16 logit-gather dtype mismatch</span><span class="zh">BF16 Logit Gather 类型不匹配</span></div><p><span class="en">FP32 recv tensor vs BF16 output crashed dist.gather → torch.empty_like inherits BF16.</span><span class="zh">FP32 接收 tensor 与 BF16 输出混用致 dist.gather 抛错 → torch.empty_like 继承 BF16。</span></p></div>
+          <div class="card"><div class="cn">BUG 02 · MEM</div><div class="ct"><span class="en">KV cache false OOM on wrong peak</span><span class="zh">KV Cache 按错误峰值 OOM 误判</span></div><p><span class="en">warmup peak mixed compile allocs → two synced warmups, use steady-state peak.</span><span class="zh">warmup 峰值混入编译期分配 → 两次同步 warmup，取稳态峰值。</span></p></div>
+          <div class="card"><div class="cn">BUG 03 · MP RECOVERY</div><div class="ct"><span class="en">TP worker leaks GPU on failure</span><span class="zh">TP Worker 失败泄漏显存</span></div><p><span class="en">destroy process group in finally + bounded cleanup (SIGTERM → join → kill).</span><span class="zh">finally 销毁 process group + 幂等有界清理（SIGTERM → join → kill）。</span></p></div>
+          <div class="card"><div class="cn">BUG 04 · CUDA GRAPH</div><div class="ct"><span class="en">Wrong bucket + padding pollutes KV</span><span class="zh">选错档 + Padding 污染 KV</span></div><p><span class="en">pick min(graph_bs≥bs); zero padding, slot_mapping=-1, copy active rows only.</span><span class="zh">取 min(graph_bs≥bs)；replay 前清零 padding、slot_mapping 填 -1，只拷活跃 row。</span></p></div>
         </div>
       </div>
-      <div class="entry reveal">
-        <div class="head">
-          <h3>BenchPilot：评测归因驱动数据迭代的智能分析 Agent</h3>
-          <span class="when">2026.04 — 05 · 实习项目</span>
+
+      <div class="proj">
+        <div class="exp-head">
+          <span class="exp-org"><span class="en">BenchPilot: Eval-Attribution-Driven Data Iteration Agent</span><span class="zh">BenchPilot：评测归因驱动数据迭代的智能分析 Agent</span></span>
+          <span class="exp-when"><span class="en">2026.04 — 05 · Internship</span><span class="zh">2026.04 — 05 · 实习项目</span></span>
         </div>
         <ul>
-          <li>面向大模型数据生产团队设计并落地 <b>评测 → 归因 → 数据迭代闭环系统</b>，把评测结果转化为可执行的数据生产策略，显著缩短「改数据 → 训练 → 看效果 → 定位问题」的迭代周期。</li>
-          <li><b>算法内核——样本级错误归因：</b>关联「数据策略—训练 checkpoint—评测结果」血缘，按数据集/任务/领域/难度拆解子指标，检索版本间不一致样本、聚类高 Loss 样本，归因到知识缺失 / 推理错误 / 幻觉 / 数据噪声 / GT 错误 / 数据污染 6 类，输出带优先级与预期收益的补数 / 清洗 / 难例增强建议。</li>
-          <li><b>GT Loss 评测服务：</b>基于 ms-swift + Megatron 搭建分布式 Teacher Forcing loss 评测链路（只算答案段、多维并行），与生成式分数交叉验证，区分「真不会」与「会但没按格式答」。</li>
-          <li><b>工程实现：</b>用 <span class="k">LangGraph</span> 受控工作流 + Function Calling 把归因约束成「发现变化 → 提出假设 → 证据验证 → 生成建议」状态机，以结构化输出 + 证据引用 + 置信度分级 + Agent Trace 降低分析幻觉。</li>
+          <li><span class="en">Designed and shipped an <b>eval → attribution → data-iteration closed-loop</b> for data-production teams, turning eval results into actionable data strategy.</span><span class="zh">面向数据生产团队，设计并落地了「<b>评测 → 归因 → 数据迭代</b>」闭环系统，把评测结果转化为可执行的数据生产策略。</span></li>
+          <li><span class="en"><b>Sample-level error attribution</b> — links "strategy — checkpoint — result" lineage, clusters high-loss samples, attributes to 6 root causes, emits prioritized augment/clean/hard-example suggestions.</span><span class="zh"><b>样本级错误归因</b>：关联「数据策略 — 训练 checkpoint — 评测结果」血缘，对高 Loss 样本聚类，归因到知识缺失、推理错误、幻觉、数据噪声、GT 标注错误、数据污染 6 类根因，并输出带优先级的补数 / 清洗 / 难例增强建议。</span></li>
+          <li><span class="en"><b>GT Loss eval service</b> on ms-swift + Megatron (answer-span-only, multi-dim parallelism), cross-validated with generative scores.</span><span class="zh"><b>GT Loss 评测服务</b>：基于 ms-swift + Megatron 的分布式 Teacher Forcing 评测（只计算答案段、多维并行），与生成式分数交叉验证，把「能力问题」与「格式 / 解析噪声」拆开。</span></li>
+          <li><span class="en"><b>Engineering:</b> a <span class="k">LangGraph</span> controlled workflow + Function Calling constrains attribution into a state machine with structured output, evidence citation and confidence tiers.</span><span class="zh"><b>工程实现</b>：用 <span class="k">LangGraph</span> 受控工作流 + Function Calling 把归因约束成状态机，以结构化输出、证据引用与置信度分级来降低幻觉。</span></li>
         </ul>
         <div class="pills">
-          <span class="pill">LangGraph</span><span class="pill">Function Calling</span>
-          <span class="pill">GT Loss</span><span class="pill">样本级归因</span>
-          <span class="pill">证据链验证</span><span class="pill">数据血缘</span>
+          <span class="pill">LangGraph</span><span class="pill">Function Calling</span><span class="pill">GT Loss</span>
+          <span class="pill"><span class="en">sample-level attribution</span><span class="zh">样本级归因</span></span>
+          <span class="pill"><span class="en">data lineage</span><span class="zh">数据血缘</span></span>
         </div>
       </div>
     </section>
 
-    <section id="edu">
-      <div class="sec-title reveal"><span class="no">03</span><h2>教育背景</h2></div>
-      <div class="entry reveal">
-        <div class="head">
-          <h3>四川大学 <span style="color:var(--muted);font-size:.8rem;font-weight:400">985 / 211</span></h3>
-          <span class="when">2025.09 — 至今</span>
-        </div>
-        <div class="org">数学学院 · 应用统计（大数据分析） <span class="thin">· 硕士</span></div>
-        <ul><li>主修：数理统计学、分析学、Python 程序设计与实践、多源信息融合、机器学习、深度学习</li></ul>
-      </div>
-      <div class="entry reveal">
-        <div class="head">
-          <h3>河南大学 <span style="color:var(--muted);font-size:.8rem;font-weight:400">双一流</span></h3>
-          <span class="when">2021.09 — 2025.06</span>
-        </div>
-        <div class="org">经济学院 · 经济统计学 <span class="thin">· 本科</span></div>
-        <ul><li>主修：时间序列分析、非参数统计、随机过程、描述性统计分析、多元统计分析</li></ul>
-      </div>
+    <!-- Skills -->
+    <section class="block reveal" id="skills">
+      <h2><span class="en">Skills</span><span class="zh">专业技能</span></h2>
+      <div class="skills-row"><span class="cat"><span class="en">Programming</span><span class="zh">编程基础</span></span><span class="items">Python · PyTorch · NumPy · Pandas · C · <span class="en">Data Structures &amp; Algorithms</span><span class="zh">数据结构与算法</span></span></div>
+      <div class="skills-row"><span class="cat"><span class="en">LLM Training</span><span class="zh">大模型训练</span></span><span class="items">Transformer · Attention · RoPE · CPT / SFT · <span class="en">128K long-context</span><span class="zh">128K 长上下文</span> · FSDP · DeepSpeed-Ulysses · Megatron · ms-swift</span></div>
+      <div class="skills-row"><span class="cat"><span class="en">Inference</span><span class="zh">推理与部署</span></span><span class="items">vLLM · PagedAttention · KV Cache · Prefix Cache · Triton · CUDA · <span class="en">Tensor Parallelism</span><span class="zh">张量并行</span> · CUDA Graph · torch.compile</span></div>
+      <div class="skills-row"><span class="cat"><span class="en">Eval &amp; Attribution</span><span class="zh">评测与归因</span></span><span class="items">HELMET · RULER · LongBench · GT Loss · <span class="en">Badcase Attribution</span><span class="zh">Badcase 归因</span> · <span class="en">Stability Methodology</span><span class="zh">稳定性方法学</span></span></div>
+      <div class="skills-row"><span class="cat"><span class="en">Data &amp; Tools</span><span class="zh">数据与工具</span></span><span class="items">LangGraph · Function Calling · LightGBM · <span class="en">Statistical Sampling</span><span class="zh">统计抽样</span> · HuggingFace · Git</span></div>
     </section>
 
-    <section id="skills">
-      <div class="sec-title reveal"><span class="no">04</span><h2>专业技能</h2></div>
-      <div class="reveal">
-        <div class="skills-row"><span class="cat">编程基础</span><span class="items">Python · PyTorch · NumPy · Pandas · C · 数据结构与算法</span></div>
-        <div class="skills-row"><span class="cat">大模型训练</span><span class="items">Transformer · Attention · RoPE · CPT / SFT · 128K 长上下文 · FSDP · DeepSpeed-Ulysses · Megatron · ms-swift</span></div>
-        <div class="skills-row"><span class="cat">推理与部署</span><span class="items">vLLM · PagedAttention · KV Cache · Prefix Cache · Triton · CUDA · 张量并行 · CUDA Graph · torch.compile</span></div>
-        <div class="skills-row"><span class="cat">评测与归因</span><span class="items">HELMET · RULER · LongBench · GT Loss · Badcase 归因 · 稳定性方法学</span></div>
-        <div class="skills-row"><span class="cat">数据与工具</span><span class="items">LangGraph · Function Calling · LightGBM · 统计抽样 · HuggingFace · Git</span></div>
-      </div>
-    </section>
-
-    <section id="honors">
-      <div class="sec-title reveal"><span class="no">05</span><h2>竞赛获奖</h2></div>
-      <ul class="honors reveal">
-        <li><b>“华为杯”第二十二届中国研究生数学建模竞赛 · 国家级三等奖（负责人）</b>——围岩裂隙识别与三维重构，ML（随机森林 AUC 0.866）+ DL（nnU-Net 迁移学习）双线并行，5 类噪声注入验证鲁棒性 +23%。</li>
-        <li><b>第十四届全国大学生市场调查与分析大赛 · 国家级三等奖（负责人）</b>——Scrapy 爬取 1.2 万条 JD + 2876 份问卷，jieba + LDA 主题挖掘、K-means 聚类、Logistic 回归显著性验证。</li>
-        <li><b>2024 “挑战杯”河南省创业计划竞赛 · 省级银奖（核心成员）</b>——防压疮护理床，清洗 20 万+ 压力时序，K-means 识别长尾体位 + 强化学习动态控制，体位匹配度 78%→92%。</li>
-        <li>全国大学生数学竞赛（非数 B）一等奖 · “东方财富杯”全国大学金融挑战赛省赛二等奖</li>
-        <li>四川大学数学学院优秀班干部 · 单项奖学金 · 中共党员</li>
-      </ul>
-    </section>
-  </main>
+  </div>
 </div>
 
 <script>
-document.getElementById("yr").textContent = new Date().getFullYear();
+document.getElementById("yr") && (document.getElementById("yr").textContent = new Date().getFullYear());
+
+// language toggle (default English; remembers choice)
+(function(){
+  var root = document.documentElement;
+  var saved = localStorage.getItem("lang") || "en";
+  var btns = document.querySelectorAll("#langToggle button");
+  function apply(l){
+    root.setAttribute("data-lang", l);
+    root.setAttribute("lang", l === "zh" ? "zh-CN" : "en");
+    localStorage.setItem("lang", l);
+    btns.forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-set") === l); });
+  }
+  apply(saved);
+  btns.forEach(function(b){ b.addEventListener("click", function(){ apply(b.getAttribute("data-set")); }); });
+})();
+
 // active nav highlight
 (function(){
-  var links = Array.prototype.slice.call(document.querySelectorAll(".side-nav a"));
-  var secs = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+  var links = Array.prototype.slice.call(document.querySelectorAll(".nav-right a[href^='#']"));
+  var map = links.map(function(a){ return { a:a, sec:document.querySelector(a.getAttribute("href")) }; });
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if(e.isIntersecting){
-        var i = secs.indexOf(e.target);
         links.forEach(function(l){ l.classList.remove("active"); });
-        if(i>-1) links[i].classList.add("active");
+        var m = map.find(function(x){ return x.sec === e.target; });
+        if(m) m.a.classList.add("active");
       }
     });
-  }, { rootMargin:"-40% 0px -55% 0px" });
-  secs.forEach(function(s){ if(s) io.observe(s); });
-  // smooth scroll
+  }, { rootMargin:"-30% 0px -60% 0px" });
+  map.forEach(function(m){ if(m.sec) io.observe(m.sec); });
   links.forEach(function(a){
     a.addEventListener("click", function(ev){
       var t = document.querySelector(a.getAttribute("href"));
